@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Aeronave {
+  id        Int      @id @default(autoincrement())
+  modelo    String
+  tipo      String
+  status    String
+  progresso Int
+  testes    Teste[]
+}
+
+model Estoque {
+  id         Int    @id @default(autoincrement())
+  peca       String
+  categoria  String
+  quantidade Int
+  status     String
+}
+
+model Funcionario {
+  id     Int     @id @default(autoincrement())
+  nome   String
+  cargo  String
+  setor  String
+  status String
+  etapas Etapa[]
+}
+
+model Etapa {
+  id            Int          @id @default(autoincrement())
+  nome          String
+  prazo         String
+  status        String       // 'Pendente' | 'Em andamento' | 'Concluída'
+  funcionarioId Int?
+  funcionario   Funcionario? @relation(fields: [funcionarioId], references: [id])
+}
+
+model Teste {
+  id         Int      @id @default(autoincrement())
+  aeronaveId Int
+  tipo       String   // 'Elétrico' | 'Hidráulico' | 'Aerodinâmico'
+  resultado  String   // 'Aprovado' | 'Reprovado'
+  data       String
+  aeronave   Aeronave @relation(fields: [aeronaveId], references: [id])
+}
