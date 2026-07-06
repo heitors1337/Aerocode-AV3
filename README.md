@@ -27,7 +27,7 @@ npm install
 
 2. Configure a conexão do banco de dados PostgreSQL no arquivo `.env`:
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/aerocode?schema=public"
+DATABASE_URL="mysql://root:sua_senha@localhost:3306/aerocode"
 ```
 
 3. Execute as migrations do Prisma para estruturar o banco:
